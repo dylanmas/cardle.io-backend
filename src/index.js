@@ -1,5 +1,6 @@
 import express from "express";
 import { Login, Signup } from "./controllers/index.js";
+import cors from "cors"
 import dotenv from "dotenv";
 dotenv.config();
 import mongoose from "mongoose";
@@ -8,6 +9,7 @@ const app = express();
 const port = process.env.PORT || 3001;
 
 app.use(express.json());
+app.use(cors())
 
 app.get("/", (req, res) => {
   res.send("Hello ");
