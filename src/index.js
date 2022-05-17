@@ -1,5 +1,5 @@
 import express from "express";
-import { Login, Signup, UserRoute } from "./controllers/index.js";
+import { Login, Signup, UserRoute, GetTime, PostTime } from "./controllers/index.js";
 import cors from "cors";
 import dotenv from "dotenv";
 dotenv.config();
@@ -18,6 +18,8 @@ app.get("/", (req, res) => {
 app.use("/api/login", Login);
 app.use("/api/signup", Signup);
 app.use("/api/user", UserRoute)
+app.use("/api/gettime", GetTime);
+app.use("/api/posttime", PostTime);
 
 mongoose
   .connect(
