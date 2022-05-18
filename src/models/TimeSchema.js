@@ -9,13 +9,9 @@ const TimeSchema = mongoose.Schema({
   email: {
     required: true,
     type: String,
-    unique: true,
   },
 });
 
-
 const TimeModel = mongoose.model("Times", TimeSchema);
 
-export {
-    TimeModel
-}
+export { TimeModel };
