@@ -7,15 +7,30 @@ route.post("/", async (req, res) => {
 
   try {
     if (time && email) {
-      const entry = new TimeModel({
-        time: time,
-        email: email,
-      });
-
-      await entry.save();
-      // await TimeModel.find().sort(1);
-
-      res.json("Successfully added the time");
+      TimeModel.findOne(
+        {
+          email: email,
+        },
+        (err, data) => {
+          if (err) res.status(404).send(err.message);
+          if (!data) {
+            const newTime = new TimeModel({
+              email: email,
+              time: time,
+            });
+            newTime.save().catch((err) => console.log(err));
+            res.json("Successfully saved the time");
+          } else {
+            if (time < data.time) {
+              data.time = time;
+              data.save().catch((err) => console.log(err));
+              res.json("Successfully saved the time");
+            } else {
+              res.json("Time not less then pervious time");
+            }
+          }
+        }
+      );
     }
   } catch (error) {
     console.log(error);
